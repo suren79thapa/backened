@@ -1,34 +1,22 @@
-import fs from "fs";
+import express from "express";
+const app = express();
+console.log(app);
+const port = 5000;
 
-// now reading the file
-// fs.readFile("./sample.txt", "utf-8", (err, data) => {
-//   console.log(data);
-// });
-// now we will be appending the file
-// fs.appendFile("./sample.txt", "i am appending and trying ", "utf-8", (err) => {
-//   console.log(err);
-// });
-// fs.mkdir("./uploads", (err) => {
-//   console.log(err);
-// });
-// fs.rmdir("./uploads", (err) => {});
-// fs.writeFile("./hello.txt", "Hello,Node.js file system", "utf-8", (err) => {
-//   if (err) {
-//     console.log("something went wrong");
-//   } else {
-//     console.log("file created");
-//   }
-// });
-// fs.rename("./hello.txt", "./greeting.txt", (err) => {
-//   if (err) {
-//     console.error("Error renaming the file:", err);
-//   } else {
-//     console.log("File renamed successfully!");
-//   }
-// });
-const persobj = {
-  name: "kapil",
-  age: 25,
-};
+app.get("/", (req, res) => {
+  const { m } = req.query;
+  if (m === undefined || isNaN(Number(m))) {
+    return res.status(400).json({
+      message: "please send a valid number",
+    });
+  }
 
-// Write it to a file named "user.json"
+  res.status(200).json({ message: `the value ${m} is a proper number` });
+});
+app.get("/about", (req, res) => {
+  return res.status(200).json({ message: "about" });
+});
+
+app.listen(port, () => {
+  console.log("server is running");
+});
