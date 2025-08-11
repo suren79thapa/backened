@@ -1,22 +1,23 @@
 import express from "express";
 const app = express();
-console.log(app);
 const port = 5000;
-
-app.get("/", (req, res) => {
-  const { m } = req.query;
-  if (m === undefined || isNaN(Number(m))) {
-    return res.status(400).json({
-      message: "please send a valid number",
-    });
+// now we will be discussing about the middleware
+app.use("/about", (req, res, next) => {
+  const { q } = req.query;
+  if (Number.isNaN(Number(q))) {
+    return res.status(400).json({ message: "enter valid number" });
   }
-
-  res.status(200).json({ message: `the value ${m} is a proper number` });
+  req.valid_number = Number(q);
+  next();
+});
+app.get("/", (req, res) => {
+  return res.status(200).json({ message: "this is local" });
 });
 app.get("/about", (req, res) => {
-  return res.status(200).json({ message: "about" });
+  // i will be destructuring the query params
+  // const { q } = req.query;
+  return res.status(200).json({ message: req.valid_number ** 2 });
 });
-
 app.listen(port, () => {
-  console.log("server is running");
+  console.log(`server is running `);
 });
