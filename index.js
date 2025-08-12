@@ -9,11 +9,11 @@ const port = 5000;
 
 mongoose
   .connect(
-    "mongodb+srv://thapasurendra447:KLus2sgihJBUCkSi@cluster0.pwck3ty.mongodb.net/"
+    "mongodb+srv://thapasurendra447:KLus2sgihJBUCkSi@cluster0.pwck3ty.mongodb.net/Shop"
   )
   .then(() => {
     app.listen(port, () => {
-      console.log("database connect and server is running");
+      console.log("database connected and server running");
     });
   })
   .catch((err) => {
