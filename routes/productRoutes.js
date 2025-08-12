@@ -1,22 +1,15 @@
 import express from "express";
 import {
-  createProduct,
-  getProduct,
+  AddProduct,
+  findProduct,
   getProducts,
-  removeProduct,
-  updateProduct,
 } from "../controllers/productController.js";
 
 const router = express.Router();
-
-//getAllProducts,getTopRatedProducts, searchProduct,productAdd,
-router.route("/products").get(getProducts).post(createProduct);
-
-//   getProductById, deleteProduct, updateProduct,
-router
-  .route("/products/:id")
-  .get(getProduct)
-  .patch(updateProduct)
-  .delete(removeProduct);
-
+// now we will be defining the routes which will be responsible for handling the routes
+//getallproduct,addproduct,search product,toprated product
+router.route("/products").get(getProducts).post(AddProduct);
+router.route("/products/:id").get(findProduct);
+// getproductbyId,deleteproduct,updateproduct
+// router.route("/products/:id").get().patch().delete();
 export default router;

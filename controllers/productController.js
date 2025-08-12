@@ -1,18 +1,21 @@
-import Product from "../models/Product.js";
-
-export const getProducts = async (req, res) => {};
-
-export const getProduct = (req, res) => {};
-
-export const createProduct = async (req, res) => {
-  try {
-    await Product.create(req.body);
-    return res.status(201).json({ message: "Product created successfully" });
-  } catch (err) {
-    return res.status(400).json({ message: err.message });
-  }
+export const products = [
+  { id: 1, name: "samsung", price: 2000 },
+  { id: 2, name: "iphone", price: 4000 },
+  { id: 3, name: "nokia", price: 5000 },
+];
+export const getProducts = (req, res) => {
+  return res.status(200).json({ products: products });
 };
-
-export const updateProduct = (req, res) => {};
-
-export const removeProduct = (req, res) => {};
+export const AddProduct = (req, res) => {
+  const { product } = req.body;
+  products.push(product);
+  return res.status(200).json({ message: "product added" });
+};
+export const findProduct = (req, res) => {
+  const { id } = req.params;
+  if (Number.isNaN(Number(id))) {
+    return res.status(400).json({ message: "please send valid id" });
+  }
+  const product = products.find((a) => a.id === Number(id));
+  res.status(200).json({ product: product });
+};
