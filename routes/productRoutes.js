@@ -6,17 +6,18 @@ import {
   removeProduct,
   updateProduct,
 } from "../controllers/productController.js";
+import { checkFile, updateFile } from "../middlewares/filecheck.js";
 
 const router = express.Router();
 
 //getAllProducts,getTopRatedProducts, searchProduct,productAdd,
-router.route("/products").get(getProducts).post(createProduct);
+router.route("/products").get(getProducts).post(checkFile, createProduct);
 
 //   getProductById, deleteProduct, updateProduct,
 router
   .route("/products/:id")
   .get(getProduct)
-  .patch(updateProduct)
+  .patch(updateFile, updateProduct)
   .delete(removeProduct);
 
 export default router;
