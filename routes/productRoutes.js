@@ -7,17 +7,25 @@ import {
   updateProduct,
 } from "../controllers/productController.js";
 import { checkFile, updateFile } from "../middlewares/filecheck.js";
+import {
+  productSchema,
+  productupdateSchema,
+  validatorJoi,
+} from "../utils/validator.js";
 
 const router = express.Router();
 
 //getAllProducts,getTopRatedProducts, searchProduct,productAdd,
-router.route("/products").get(getProducts).post(checkFile, createProduct);
+router
+  .route("/products")
+  .get(getProducts)
+  .post(validatorJoi.body(productSchema), checkFile, createProduct);
 
 //   getProductById, deleteProduct, updateProduct,
 router
   .route("/products/:id")
   .get(getProduct)
-  .patch(updateFile, updateProduct)
+  .patch(validatorJoi.body(productupdateSchema), updateFile, updateProduct)
   .delete(removeProduct);
 
 export default router;

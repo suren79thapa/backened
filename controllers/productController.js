@@ -4,7 +4,9 @@ import mongoose from "mongoose";
 import { removeFile } from "../utils/fileRemove.js";
 export const getProducts = async (req, res) => {
   try {
-    const Products = await Product.find();
+    const Products = await Product.find({ stock: { $gt: 400 } }).select(
+      "title stock"
+    );
     res.status(200).json({ Products });
   } catch (err) {
     return res.status(400).json({ message: err.message });
@@ -48,7 +50,7 @@ export const updateProduct = async (req, res) => {
     }
     const isExist = await Product.findById(id);
     if (!isExist) {
-      if (req.imagePath) removeFile();
+      if (req.imagePath) removeFile(req.imagePath);
       res.status(404).json({ message: "Product not found" });
     }
     isExist.title = req.body?.title || isExist.title;
@@ -56,10 +58,13 @@ export const updateProduct = async (req, res) => {
     isExist.brand = req.body?.brand || isExist.brand;
     isExist.price = req.body?.price || isExist.price;
     isExist.category = req.body?.category || isExist.category;
+    if (req.imagePath) removeFile(isExist.image);
     isExist.image = req.imagePath || isExist.image;
-    isExist.save();
+
+    await isExist.save();
     return res.status(200).json({ message: "product updated successfully" });
   } catch (err) {
+    if (req.imagePath) removeFile(req.imagePath);
     return res.status(400).json({ message: err.message });
   }
 };
