@@ -2,7 +2,7 @@ import express from "express";
 import productRoutes from "./routes/productRoutes.js";
 import mongoose from "mongoose";
 import fileUpload from "express-fileupload";
-
+// import qs from "qs";
 //mvc
 
 const app = express();
@@ -27,7 +27,7 @@ app.use(
 );
 
 app.use(express.json());
-
+// app.set("query parser", (str) => qs.parse(str));
 app.get("/", (req, res) => {
   return res.status(200).json({ message: "hello" });
 });

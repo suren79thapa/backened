@@ -1,4 +1,26 @@
 import mongoose from "mongoose";
+export const brands = [
+  "Apple",
+  "Samsung",
+  "Sony",
+  "Xiaomi",
+  "Dell",
+  "HP",
+  "Nike",
+  "Adidas",
+  "Puma",
+  "Levi's",
+];
+export const categories = [
+  "Mobile",
+  "Laptop",
+  "Tablet",
+  "Accessory",
+  "Shoes",
+  "Clothing",
+  "Electronics",
+  "Home Appliances",
+];
 const productSchema = new mongoose.Schema(
   {
     title: {
@@ -17,32 +39,12 @@ const productSchema = new mongoose.Schema(
     },
     brand: {
       type: String,
-      enum: [
-        "Apple",
-        "Samsung",
-        "Sony",
-        "Xiaomi",
-        "Dell",
-        "HP",
-        "Nike",
-        "Adidas",
-        "Puma",
-        "Levi's",
-      ],
+      enum: brands,
       required: true,
     },
     category: {
       type: String,
-      enum: [
-        "Mobile",
-        "Laptop",
-        "Tablet",
-        "Accessory",
-        "Shoes",
-        "Clothing",
-        "Electronics",
-        "Home Appliances",
-      ],
+      enum: categories,
       required: true,
     },
     stock: {

@@ -3,6 +3,7 @@ import {
   createProduct,
   getProduct,
   getProducts,
+  getTop5products,
   removeProduct,
   updateProduct,
 } from "../controllers/productController.js";
@@ -20,7 +21,7 @@ router
   .route("/products")
   .get(getProducts)
   .post(validatorJoi.body(productSchema), checkFile, createProduct);
-
+router.route("/top-5-products").get(getTop5products, getProducts);
 //   getProductById, deleteProduct, updateProduct,
 router
   .route("/products/:id")
