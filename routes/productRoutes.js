@@ -13,6 +13,7 @@ import {
   productupdateSchema,
   validatorJoi,
 } from "../utils/validator.js";
+import { adminCheck, checkUser } from "../middlewares/checkAuth.js";
 
 const router = express.Router();
 
@@ -20,13 +21,25 @@ const router = express.Router();
 router
   .route("/products")
   .get(getProducts)
-  .post(validatorJoi.body(productSchema), checkFile, createProduct);
+  .post(
+    checkUser,
+    adminCheck,
+    validatorJoi.body(productSchema),
+    checkFile,
+    createProduct
+  );
 router.route("/top-5-products").get(getTop5products, getProducts);
 //   getProductById, deleteProduct, updateProduct,
 router
   .route("/products/:id")
   .get(getProduct)
-  .patch(validatorJoi.body(productupdateSchema), updateFile, updateProduct)
+  .patch(
+    checkUser,
+    adminCheck,
+    validatorJoi.body(productupdateSchema),
+    updateFile,
+    updateProduct
+  )
   .delete(removeProduct);
 
 export default router;
