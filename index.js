@@ -3,6 +3,7 @@ import productRoutes from "./routes/productRoutes.js";
 import userRoutes from "./routes/userRoutes.js";
 import mongoose from "mongoose";
 import fileUpload from "express-fileupload";
+import cors from "cors";
 // import qs from "qs";
 //mvc
 
@@ -21,6 +22,7 @@ mongoose
   .catch((err) => {
     console.log(err);
   });
+app.use(cors());
 app.use(
   fileUpload({
     limits: { fileSize: 5 * 1024 * 1024 },
