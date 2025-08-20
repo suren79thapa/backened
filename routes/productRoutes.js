@@ -40,6 +40,6 @@ router
     updateFile,
     updateProduct
   )
-  .delete(removeProduct);
+  .delete(checkUser, adminCheck, removeProduct);
 
 export default router;
