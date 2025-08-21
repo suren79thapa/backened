@@ -22,7 +22,12 @@ mongoose
   .catch((err) => {
     console.log(err);
   });
-app.use(cors());
+app.use(
+  cors({
+    credentials: true,
+    origin: ["http://localhost:5173"],
+  })
+);
 app.use(
   fileUpload({
     limits: { fileSize: 5 * 1024 * 1024 },
