@@ -28,6 +28,7 @@ app.use(
     origin: ["http://localhost:5173"],
   })
 );
+app.use(express.static("uploads"));
 app.use(
   fileUpload({
     limits: { fileSize: 5 * 1024 * 1024 },
