@@ -9,6 +9,7 @@ export const getTop5products = (req, res, next) => {
 };
 
 export const getProducts = async (req, res) => {
+  // console.log(req.cookies.jwt);
   try {
     const queryObject = { ...req.query };
     const excludedFields = [

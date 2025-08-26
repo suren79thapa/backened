@@ -4,6 +4,7 @@ import userRoutes from "./routes/userRoutes.js";
 import mongoose from "mongoose";
 import fileUpload from "express-fileupload";
 import cors from "cors";
+import cookieParser from "cookie-parser";
 // import qs from "qs";
 //mvc
 
@@ -22,6 +23,7 @@ mongoose
   .catch((err) => {
     console.log(err);
   });
+app.use(cookieParser());
 app.use(
   cors({
     credentials: true,
@@ -38,6 +40,7 @@ app.use(
 app.use(express.json());
 // app.set("query parser", (str) => qs.parse(str));
 app.get("/", (req, res) => {
+  // console.log(req.cookies.jwt);
   return res.status(200).json({ message: "hello" });
 });
 

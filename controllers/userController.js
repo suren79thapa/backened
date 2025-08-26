@@ -14,6 +14,12 @@ export const loginUser = async (req, res) => {
     // res.status(200).json({ message: "user successfully login" });
     // but we won't we doing this instead we are going to create the token(server and give them which is going to be sealed and we will be stored in the user local storage web browser)
     const token = jwt.sign({ id: isExist._id, role: isExist.role }, "secret");
+    // res.cookie("jwt", token, {
+    //   httpOnly: true,
+    //   maxAge: 24 * 60 * 60 * 1000,
+    //   sameSite: "none",
+    //   secure: true,
+    // });
     return res.status(200).json({
       token,
       role: isExist.role,
