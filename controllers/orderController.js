@@ -1,4 +1,5 @@
 import Order from "../models/Order.js";
+import Product from "../models/Product.js";
 
 export const getOrders = async (req, res) => {
   try {
@@ -26,6 +27,14 @@ export const getOrder = async (req, res) => {
 export const createOrder = async (req, res) => {
   const { products, totalAmount } = req.body;
   try {
+    console.log(products);
+    products.forEach(async (product) => {
+      await Product.findById(product.id);
+      await Product.updateOne(
+        { _id: product.id },
+        { $inc: { stock: -product.qty } }
+      );
+    });
     await Order.create({
       user: req.userId,
       products,
