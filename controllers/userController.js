@@ -1,6 +1,26 @@
 import User from "../models/User.js";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
+export const getUser = async (req, res) => {
+  try {
+    const user = await User.findById(req.userId).select("-password");
+    return res.status(200).json(user);
+  } catch (err) {
+    return res.status(400).json({ message: err.message });
+  }
+};
+export const updateUser = async (req, res) => {
+  try {
+    const isExist = await User.findById(req.userId);
+    if (!isExist) return res.status(404).json({ message: "User not found" });
+    isExist.email = req.body?.email || isExist.email;
+    isExist.username = req.body?.username || isExist.username;
+    await isExist.save();
+    return res.status(200).json({ message: "user updated Successfully" });
+  } catch (err) {
+    return res.status(400).json({ message: err.message });
+  }
+};
 export const loginUser = async (req, res) => {
   const { email, password } = req.body;
   try {
