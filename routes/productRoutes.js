@@ -4,6 +4,7 @@ import {
   getProduct,
   getProducts,
   getTop5products,
+  productReview,
   removeProduct,
   updateProduct,
 } from "../controllers/productController.js";
@@ -28,6 +29,7 @@ router
     checkFile,
     createProduct
   );
+router.route("/products/reviews/:id").post(checkUser, productReview);
 router.route("/top-5-products").get(getTop5products, getProducts);
 //   getProductById, deleteProduct, updateProduct,
 router
