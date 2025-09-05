@@ -15,6 +15,7 @@ const port = process.env.PORT || 5000;
 
 const allowedOrigins = [
   "http://localhost:5173",
+  "https://webfrontend-woad.vercel.app",
   process.env.FRONTEND_URL,
 ].filter(Boolean);
 
