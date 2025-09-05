@@ -22,16 +22,6 @@ app.use(
   cors({
     origin: allowedOrigins,
     credentials: true,
-    methods: ["GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"],
-    allowedHeaders: ["Content-Type", "Authorization"],
-  })
-);
-
-app.options(
-  "*",
-  cors({
-    origin: allowedOrigins,
-    credentials: true,
   })
 );
 
@@ -44,7 +34,6 @@ mongoose
   })
   .catch((err) => {
     console.error("MongoDB connection failed:", err);
-    process.exit(1);
   });
 
 app.use(cookieParser());
