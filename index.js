@@ -1,3 +1,5 @@
+import dotenv from "dotenv";
+dotenv.config();
 import express from "express";
 import productRoutes from "./routes/productRoutes.js";
 import orderRoutes from "./routes/orderRoutes.js";
@@ -10,12 +12,10 @@ import cookieParser from "cookie-parser";
 //mvc
 
 const app = express();
-const port = 5000;
+const port = process.env.PORT || 5000;
 
 mongoose
-  .connect(
-    "mongodb+srv://thapasurendra447:KLus2sgihJBUCkSi@cluster0.pwck3ty.mongodb.net/Shop"
-  )
+  .connect(process.env.MONGO_URI)
   .then(() => {
     app.listen(port, () => {
       console.log("database connected and server running");
@@ -23,14 +23,21 @@ mongoose
   })
   .catch((err) => {
     console.log(err);
+    process.exit(1);
   });
-app.use(cookieParser());
+const allowedOrigins = [
+  "http://localhost:5173",
+  process.env.FRONTEND_URL, // Set FRONTEND_URL in Render
+];
+
 app.use(
   cors({
     credentials: true,
-    origin: ["http://localhost:5173"],
+    origin: allowedOrigins,
   })
 );
+app.use(cookieParser());
+
 app.use(express.static("uploads"));
 app.use(
   fileUpload({
